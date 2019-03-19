@@ -18,17 +18,31 @@ get '/other' do
 	erb :other
 end
 
+get '/contacts' do
+	erb :contacts
+end
+
 post '/visit' do
-	@username = params [:username]
-	@phonenum = params [:phone]
-	@datetime = params [:datetime]
+	@username = params[:username]
+	@phonenum = params[:phone]
+	@datetime = params[:datetime]
 #	@barbermaster = params[barbermaster]
 
-
-	f = File.open "users.txt", "a"  #а дописуємо в кінець файлу
+	f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
  	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n"
  	f.close		
 
  	erb "Thank you, we will contact with you ASAP"
 
+end
+
+post '/contacts' do
+ @mail = params[:email]   # може не спрацювати взяв id
+ @msg   = params[:message]
+
+	f = File.open "public/contacts.txt", "a"  #а дописуємо в кінець файлу
+ 	f.write "USER-mail : #{@mail} ,message: #{@msg} \n"
+ 	f.close		
+
+ 	erb "Thank you for the msg"
 end
