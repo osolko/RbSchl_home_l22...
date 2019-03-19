@@ -17,3 +17,18 @@ end
 get '/other' do
 	erb :other
 end
+
+post '/visit' do
+	@username = params [:username]
+	@phonenum = params [:phone]
+	@datetime = params [:datetime]
+#	@barbermaster = params[barbermaster]
+
+
+	f = File.open "users.txt", "a"  #а дописуємо в кінець файлу
+ 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n"
+ 	f.close		
+
+ 	erb "Thank you, we will contact with you ASAP"
+
+end
