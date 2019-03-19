@@ -13,3 +13,7 @@ end
 get '/visit' do
 	erb :visit
 end
+
+get '/other' do
+	erb :other
+end
