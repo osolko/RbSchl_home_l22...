@@ -26,10 +26,10 @@ post '/visit' do
 	@username = params[:username]
 	@phonenum = params[:phone]
 	@datetime = params[:datetime]
-#	@barbermaster = params[barbermaster]
+	@worker   = params[:barber]
 
 	f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
- 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n"
+ 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} \n"
  	f.close		
 
  	erb "Thank you, we will contact with you ASAP"
@@ -37,7 +37,7 @@ post '/visit' do
 end
 
 post '/contacts' do
- @mail = params[:email]   # може не спрацювати взяв id
+ @mail = params[:email]   
  @msg   = params[:message]
 
 	f = File.open "public/contacts.txt", "a"  #а дописуємо в кінець файлу
