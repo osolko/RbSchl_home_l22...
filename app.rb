@@ -55,7 +55,7 @@ post '/admin' do
 	@pass	= params[:password]
 
 	if @login == 'admin' && @pass == 'admin'
- 		send_file 'public/users.txt' + 'public/contacts.txt'
+ 		send_file 'public/users.txt'
  #		send_file 'public/contacts.txt'
 	 	erb :login_form
 	else
