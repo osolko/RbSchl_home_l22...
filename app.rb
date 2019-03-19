@@ -33,7 +33,6 @@ post '/visit' do
  	f.close		
 
  	erb "Thank you, we will contact with you ASAP"
-
 end
 
 post '/contacts' do
@@ -46,3 +45,22 @@ post '/contacts' do
 
  	erb "Thank you for the msg"
 end
+
+get '/admin' do
+	erb :login_form
+end
+
+post '/admin' do
+	@login 	= params[:username]
+	@pass	= params[:password]
+
+	if @login == 'admin' && @pass == 'admin'
+ 		send_file 'public/users.txt' + 'public/contacts.txt'
+ #		send_file 'public/contacts.txt'
+	 	erb :login_form
+	else
+		@denied = "Wrong credential, access denied"
+		erb :login_form
+	end
+end
+
