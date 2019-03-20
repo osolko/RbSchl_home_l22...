@@ -46,6 +46,7 @@ post '/contacts' do
  	erb "Thank you for the msg"
 end
 
+#--------admin part------
 get '/admin' do
 	erb :login_form
 end
