@@ -32,7 +32,7 @@ post '/visit' do
  	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} \n"
  	f.close		
 
- 	erb "Thank you, we will contact with you ASAP"
+ 	erb "Thank you <b>#{@username.capitalize}</b>, we will contact with you ASAP"
 end
 
 post '/contacts' do
@@ -65,3 +65,4 @@ post '/admin' do
 	end
 end
 
+#commit
