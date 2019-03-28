@@ -26,10 +26,11 @@ post '/visit' do
 	@username = params[:username]
 	@phonenum = params[:phone]
 	@datetime = params[:datetime]
-	@worker   = params[:barber] 
+	@worker   = params[:barber]
+	@color	  = params[:colorpicker] 
 	
 	f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
- 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} \n"
+ 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} , hair color: #{@color} \n"
  	f.close		
 
  	erb "Thank you <b>#{@username.capitalize}</b>, we will contact with you ASAP"
