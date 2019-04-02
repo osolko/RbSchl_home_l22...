@@ -6,19 +6,13 @@
   <div class="form-group">
     <label>Ваше имя</label>
     <input name="username" type="text" class="form-control" placeholder="Ваше имя">
-  </div>
 
-  <div class="form-group">
     <label>Ваш телефон</label>
     <input name="phone" type="text" class="form-control" placeholder="Ваш телефон">
-  </div>
 
-  <div class="form-group">
     <label>Когда вас ждать?</label>
     <input name="datetime" type="text" class="form-control" placeholder="Введите дату и время">
-  </div>
 
-  <div class="form-group">
     <select name="barber" class="custom-select">
       <option selected>Select you master</option>
       <option value="White">Walter White</option>
@@ -29,7 +23,7 @@
 
   <div class="form-group">
     <label>Select you future Hair color: </label>
-    <select name="colorpicker" id="color">
+    <select name="color" id="color">
       <option value="#7bd148">Green</option>
       <option value="#5484ed">Bold blue</option>
       <option value="#a4bdfc">Blue</option>
@@ -45,9 +39,11 @@
     </select>
   </div>
 
-<script type="text/javascript">
-$('#color').simplecolorpicker();
-</script>
+  <script type="text/javascript">
+    
+      $('#color').simplecolorpicker();
+
+  </script>
 
   <button type="submit" class="btn btn-primary">Записаться</button>
 

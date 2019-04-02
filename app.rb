@@ -7,6 +7,7 @@ get '/' do
 end
 
 get '/about' do
+	@error = "somehing wrong..."
 	erb :about
 end
 
@@ -27,7 +28,7 @@ post '/visit' do
 	@phonenum = params[:phone]
 	@datetime = params[:datetime]
 	@worker   = params[:barber]
-	@color	  = params[:colorpicker] 
+	@color	  = params[:color] 
 	
 	f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
  	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} , hair color: #{@color} \n"
