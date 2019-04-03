@@ -30,18 +30,24 @@ post '/visit' do
 	@worker   = params[:barber]
 	@color	  = params[:color] 
 
-#hash	
-hh ={ :username => "name i required",
-	  :phone =>    "phone is required",
-	  :datetime => "date is required"
-}
 
 # multiple validation msg
-@error = hh.select {|key,_| params[key] == ""}.values.join(", ")
+def get_validation_msg 
+	
+	hh ={ :username => "name i required",
+	 	   :phone =>    "phone is required",
+	 	   :datetime => "date is required"
+}
 
-	if @error != ''
+	@error = hh.select {|key,_| params[key] == ""}.values.join(" , ")
+
+end
+
+	if get_validation_msg  != ''
 		return erb :visit
 	end
+
+
 
 
 
