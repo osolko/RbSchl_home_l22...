@@ -30,6 +30,13 @@ post '/visit' do
 	@worker   = params[:barber]
 	@color	  = params[:color] 
 	
+if @username == ''
+	@error = 'name is required'
+	return erb :visit
+end
+
+
+
 	f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
  	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} , hair color: #{@color} \n"
  	f.close		
