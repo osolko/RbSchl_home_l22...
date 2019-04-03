@@ -29,10 +29,20 @@ post '/visit' do
 	@datetime = params[:datetime]
 	@worker   = params[:barber]
 	@color	  = params[:color] 
-	
-if @username == ''
-	@error = 'name is required'
-	return erb :visit
+
+#hash	
+hh ={ :username => "name i required",
+	  :phone => "phone is required",
+	  :datetime => "is required"
+}
+
+# для кожної пари ключ-зачення
+hh.each do |key, value|
+	if params[key] == ''
+		@error = hh[key]
+
+		return erb :visit
+	end
 end
 
 
