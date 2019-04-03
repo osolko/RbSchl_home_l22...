@@ -36,14 +36,14 @@ hh ={ :username => "name i required",
 	  :datetime => "date is required"
 }
 
-# для кожної пари ключ-зачення
-hh.each do |key, value|
-	if params[key] == ''
-		@error = hh[key]
+# multiple validation msg
+@error = hh.select {|key,_| params[key] == ""}.values.join(", ")
 
+	if @error != ''
 		return erb :visit
 	end
-end
+
+
 
 
 
