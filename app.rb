@@ -32,8 +32,8 @@ post '/visit' do
 
 #hash	
 hh ={ :username => "name i required",
-	  :phone => "phone is required",
-	  :datetime => "is required"
+	  :phone =>    "phone is required",
+	  :datetime => "date is required"
 }
 
 # для кожної пари ключ-зачення
