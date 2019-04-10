@@ -16,10 +16,10 @@
 
 <div class="form-group">
     <select name="barber" class="custom-select">
-      <option selected>Select you master</option>
-      <option value="White">Walter White</option>
-      <option value="Pinkman">Jessie Pinkman</option>
-      <option value="Fring">Gus Fring</option>
+      <option >Select you master</option>
+      <option <%= @worker == 'Walter White' ? 'selected' : ''  %>>Walter White</option>
+      <option <%= @worker == 'Jessie Pinkman' ? 'selected' : ''  %>>Jessie Pinkman</option>
+      <option <%= @worker == 'Gus Fring' ? 'selected' : ''  %>>Gus Fring</option>
     </select>
 </div>
 
