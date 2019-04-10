@@ -4,9 +4,13 @@ require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
 
+def get_db 
+	SQLite3::Database.new 'barbershop.db'
+end
+
 configure do
-	@db = SQLite3::Database.new 'barbershop.db'
-	@db.execute 'CREATE TABLE IF NOT EXISTS 
+	db = get_db
+	db.execute 'CREATE TABLE IF NOT EXISTS 
 			"Users" 
 			(	"id" INTEGER PRIMARY KEY AUTOINCREMENT, 
 				"username" TEXT, 
@@ -15,6 +19,7 @@ configure do
 				"barber" TEXT,
 				"color" TEXT 
 			)'
+	db.close
 end
 
 get '/' do
@@ -52,27 +57,27 @@ post '/visit' do
 		hh ={ :username => "name i required",
 		 	   :phone =>    "phone is required",
 		 	   :datetime => "date is required"
-	}
+			}
 
 		@error = hh.select {|key,_| params[key] == ""}.values.join(" , ")
-
 	end
 
 	if get_validation_msg  != ''
 		return erb :visit
 	end
 
+# f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
+# 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} , hair color: #{@color} \n"
+# 	f.close		
 
-	# f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
- # 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} , hair color: #{@color} \n"
- # 	f.close		
+	db = get_db
+	db.execute 'INSERT INTO Users (username, phone, datestamp, barber, color) 
+				VALUES (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @worker, @color]
+	db.close
+
 
  	erb "Thank you <b>#{@username.capitalize}</b>, we will contact with you ASAP"
-
-
-
 end
-
 
 
 
