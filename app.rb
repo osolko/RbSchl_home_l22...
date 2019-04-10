@@ -2,7 +2,20 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'pony'
+require 'sqlite3'
 
+configure do
+	@db = SQLite3::Database.new 'barbershop.db'
+	@db.execute 'CREATE TABLE IF NOT EXISTS 
+			"Users" 
+			(	"id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+				"username" TEXT, 
+				"phone" TEXT,
+				"datestamp" TEXT,
+				"barber" TEXT,
+				"color" TEXT 
+			)'
+end
 
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
@@ -34,28 +47,34 @@ post '/visit' do
 
 
 # multiple validation msg
-def get_validation_msg 
-	
-	hh ={ :username => "name i required",
-	 	   :phone =>    "phone is required",
-	 	   :datetime => "date is required"
-}
+	def get_validation_msg 
+		
+		hh ={ :username => "name i required",
+		 	   :phone =>    "phone is required",
+		 	   :datetime => "date is required"
+	}
 
-	@error = hh.select {|key,_| params[key] == ""}.values.join(" , ")
+		@error = hh.select {|key,_| params[key] == ""}.values.join(" , ")
 
-end
+	end
 
 	if get_validation_msg  != ''
 		return erb :visit
 	end
 
 
-	f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
- 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} , hair color: #{@color} \n"
- 	f.close		
+	# f = File.open "public/users.txt", "a"  #а дописуємо в кінець файлу
+ # 	f.write "Customer : #{@username} , #{@phonenum},  when: #{@datetime} \n\t worker: #{@worker} , hair color: #{@color} \n"
+ # 	f.close		
 
  	erb "Thank you <b>#{@username.capitalize}</b>, we will contact with you ASAP"
+
+
+
 end
+
+
+
 
 
 #--------contact------
@@ -82,20 +101,20 @@ post '/contacts' do
 # })
 
 
-Pony.options = { :from => 'noreply@example.com', 
-				 :via => :smtp, 
-				 :via_options => { 
-				 	:address => 'smtp.ukr.net', 
-				    :port          => '2525',
-			        :enable_starttls_auto => true,
-			        :user_name      => 'bender2019',
-			      	:password       => 'K440V7*is7',
-			      	:authentication => :plain, # :plain, :login, :cram_md5, no auth by default
-			      	:domain         => "localhost:4567.localdomain"
-			    	}
-	      		} 
+# Pony.options = { :from => 'noreply@example.com', 
+# 				 :via => :smtp, 
+# 				 :via_options => { 
+# 				 	:address => 'smtp.ukr.net', 
+# 				    :port          => '2525',
+# 			        :enable_starttls_auto => true,
+# 			        :user_name      => 'bender2019',
+# 			      	:password       => 'K440V7*is7',
+# 			      	:authentication => :plain, # :plain, :login, :cram_md5, no auth by default
+# 			      	:domain         => "localhost:4567.localdomain"
+# 			    	}
+# 	      		} 
 
-Pony.mail(:to => 'bender2019@ukr.net') # Sends mail to bender2019@ukr.net from noreply@example.com using smtp
+# Pony.mail(:to => 'bender2019@ukr.net') # Sends mail to bender2019@ukr.net from noreply@example.com using smtp
 
 
 
