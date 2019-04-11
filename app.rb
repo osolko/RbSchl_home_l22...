@@ -19,10 +19,11 @@ configure do
 				"datestamp" TEXT,
 				"barber" TEXT,
 				"color" TEXT 
-			)';
+			)'
+			
 	db.execute 'CREATE TABLE IF NOT EXISTS "barber" 
 			(	"id" INTEGER PRIMARY KEY AUTOINCREMENT, 
-				"username" TEXT
+				"name" TEXT
 			)'
 
 end
@@ -136,22 +137,7 @@ post '/contacts' do
 end
 
 
-
-
-
 #--------admin part------
-
-get '/showusers' do
- 
-	db = get_db
-	@results = db.execute 'SELECT * FROM Users order by id desc' 
-
-	 erb :showusers
-	
-
-
-end
-
 
 get '/admin' do
 	erb :login_form
@@ -171,4 +157,11 @@ post '/admin' do
 	end
 end
 
-#commit
+get '/showusers' do
+ 
+	db = get_db
+	@results = db.execute 'SELECT * FROM Users order by id desc' 
+
+	erb :showusers
+
+end
