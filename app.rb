@@ -5,21 +5,26 @@ require 'pony'
 require 'sqlite3'
 
 def get_db 
-	SQLite3::Database.new 'barbershop.db'
+	db = SQLite3::Database.new 'barbershop.db'
+	db.results_as_hash = true
+	return db
 end
 
 configure do
 	db = get_db
-	db.execute 'CREATE TABLE IF NOT EXISTS 
-			"Users" 
+	db.execute 'CREATE TABLE IF NOT EXISTS "Users" 
 			(	"id" INTEGER PRIMARY KEY AUTOINCREMENT, 
 				"username" TEXT, 
 				"phone" TEXT,
 				"datestamp" TEXT,
 				"barber" TEXT,
 				"color" TEXT 
+			)';
+	db.execute 'CREATE TABLE IF NOT EXISTS "barber" 
+			(	"id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+				"username" TEXT
 			)'
-	db.close
+
 end
 
 get '/' do
@@ -135,6 +140,24 @@ end
 
 
 #--------admin part------
+
+# get '/showusers' do
+ 
+# 	db = get_db
+# 	db.execute 'SELECT * FROM Users' do |row|
+# 	puts row[1]
+# 	end
+# 	db.close
+
+# 	erb "	db.execute 'SELECT * FROM Users' do |row|
+# 	puts row[1]
+# 	end
+# "	
+
+
+# end
+
+
 get '/admin' do
 	erb :login_form
 end
