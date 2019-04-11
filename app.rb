@@ -141,21 +141,16 @@ end
 
 #--------admin part------
 
-# get '/showusers' do
+get '/showusers' do
  
-# 	db = get_db
-# 	db.execute 'SELECT * FROM Users' do |row|
-# 	puts row[1]
-# 	end
-# 	db.close
+	db = get_db
+	@results = db.execute 'SELECT * FROM Users order by id desc' 
 
-# 	erb "	db.execute 'SELECT * FROM Users' do |row|
-# 	puts row[1]
-# 	end
-# "	
+	 erb :showusers
+	
 
 
-# end
+end
 
 
 get '/admin' do
