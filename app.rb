@@ -4,10 +4,25 @@ require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
 
+
+def is_barber_exist? db, name
+
+	db.execute('SELECT * FROM barber where name=?',[name]).length > 0 
+
+end
+
 def get_db 
 	db = SQLite3::Database.new 'barbershop.db'
 	db.results_as_hash = true
 	return db
+end
+
+def seed_db db, barber
+	barber.each do |barber|
+		if !is_barber_exist? db, barber
+			db.execute 'INSERT INTO barber (name) values (?)', [barber]
+		end
+	end
 end
 
 configure do
@@ -20,12 +35,15 @@ configure do
 				"barber" TEXT,
 				"color" TEXT 
 			)'
-			
+
 	db.execute 'CREATE TABLE IF NOT EXISTS "barber" 
 			(	"id" INTEGER PRIMARY KEY AUTOINCREMENT, 
 				"name" TEXT
 			)'
 
+	# передаємо в функцію 2 параметри базу (змінна db) 
+	# та елементи масива як параметри, для заповнення бази	
+	seed_db db, ['Jessie Pinkman','Walter White','Gus Frig','Mike Erthol'] 
 end
 
 get '/' do
@@ -38,7 +56,12 @@ get '/about' do
 end
 
 get '/visit' do
+
+	db = get_db
+	@barberlist = db.execute 'SELECT * FROM barber' 
+
 	erb :visit
+
 end
 
 get '/other' do
