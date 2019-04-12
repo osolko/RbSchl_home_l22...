@@ -102,7 +102,7 @@ post '/visit' do
 	db.close
 
 
- 	erb "Thank you <b>#{@username.capitalize}</b>, we will contact with you ASAP"
+ 	erb "<h2>Thank you <b>#{@username.capitalize}</b>, we will contact with you!</h2>"
 end
 
 
