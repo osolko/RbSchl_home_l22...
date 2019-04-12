@@ -6,9 +6,7 @@ require 'sqlite3'
 
 
 def is_barber_exist? db, name
-
 	db.execute('SELECT * FROM barber where name=?',[name]).length > 0 
-
 end
 
 def get_db 
@@ -20,7 +18,7 @@ end
 def seed_db db, barber
 	barber.each do |barber|
 		if !is_barber_exist? db, barber
-			db.execute 'INSERT INTO barber (name) values (?)', [barber]
+			db.execute 'INSERT INTO barber (name) VALUES (?)', [barber]
 		end
 	end
 end
@@ -41,8 +39,8 @@ configure do
 				"name" TEXT
 			)'
 
-	# передаємо в функцію 2 параметри базу (змінна db) 
-	# та елементи масива як параметри, для заповнення бази	
+		# передаємо в функцію 2 параметри базу (змінна db) 
+		# та елементи масива як параметри, для заповнення бази	
 	seed_db db, ['Jessie Pinkman','Walter White','Gus Frig','Mike Erthol'] 
 end
 
@@ -55,21 +53,20 @@ get '/about' do
 	erb :about
 end
 
-get '/visit' do
-
-	db = get_db
-	@barberlist = db.execute 'SELECT * FROM barber' 
-
-	erb :visit
-
-end
-
 get '/other' do
 	erb :other
 end
 
 get '/contacts' do
 	erb :contacts
+end
+
+get '/visit' do
+
+	db = get_db
+	@barberlist = db.execute 'SELECT * FROM barber' 
+
+	erb :visit
 end
 
 post '/visit' do
@@ -116,24 +113,6 @@ end
 post '/contacts' do
   # @mail = params[:email]   
   # @msg   = params[:message]
-
-# Pony.mail({
-#   :to => 'bender2019@ukr.net',
-#   :from => params[:email], 
-#   :subject => 'hi', 
-#   :body => params[:message],
-#   :via => :smtp,
-#   :via_options => {
-#     :address        => 'smtp.ukr.net',
-#     :port           => '2525',
-#     :enable_starttls_auto => true,
-#     :user_name      => 'bender2019',
-#     :password       => 'K440V7*is7',
-#     :authentication => :plain, # :plain, :login, :cram_md5, no auth by default
-#     :domain         => "localhost.localdomain" # the HELO domain provided by the client to the server
-#   }
-# })
-
 
 # Pony.options = { :from => 'noreply@example.com', 
 # 				 :via => :smtp, 
